@@ -1,10 +1,6 @@
 package test
 
 import (
-	"app"
-	"app/api"
-	"app/kernel/log"
-	"app/kernel/pool"
 	"context"
 	"fmt"
 	"os"
@@ -12,6 +8,11 @@ import (
 	"sync"
 	"testing"
 	"time"
+
+	"github.com/vmosc/app"
+	"github.com/vmosc/app/api"
+	"github.com/vmosc/app/kernel/log"
+	"github.com/vmosc/app/kernel/pool"
 )
 
 // TestClientCall 测试 Client.Call 方法的核心调用路径。

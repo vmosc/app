@@ -1,8 +1,6 @@
-// app/test/log_test.go
 package test
 
 import (
-	"app/kernel/log"
 	"bytes"
 	"errors"
 	"os"
@@ -12,9 +10,11 @@ import (
 	"testing"
 	"time"
 	_ "unsafe" // for go:linkname
+
+	"github.com/vmosc/app/kernel/log"
 )
 
-//go:linkname handleError app/kernel/log.handleError
+//go:linkname handleError github.com/vmosc/app/kernel/log.handleError
 func handleError(err error)
 
 // 每个测试开始前重置日志系统，避免重复初始化错误

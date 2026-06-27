@@ -1,10 +1,6 @@
 package app
 
 import (
-	"app/kernel/codec"
-	"app/kernel/log"
-	"app/kernel/pool"
-	"app/kernel/unix"
 	"context"
 	"errors"
 	"fmt"
@@ -12,6 +8,11 @@ import (
 	"sync"
 	"sync/atomic"
 	"time"
+
+	"github.com/vmosc/app/kernel/codec"
+	"github.com/vmosc/app/kernel/log"
+	"github.com/vmosc/app/kernel/pool"
+	"github.com/vmosc/app/kernel/unix"
 )
 
 // Server 服务端结构体。

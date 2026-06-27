@@ -1,12 +1,12 @@
-// app/test/server_test.go
 package test
 
 import (
-	"app/api"
-	"app/kernel/log"
 	"context"
 	"testing"
 	"time"
+
+	"github.com/vmosc/app/api"
+	"github.com/vmosc/app/kernel/log"
 )
 
 type TestService struct{}

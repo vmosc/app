@@ -1,8 +1,6 @@
-// app/test/pool_test.go
 package test
 
 import (
-	"app/kernel/pool"
 	"context"
 	"encoding/json"
 	"errors"
@@ -15,6 +13,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/vmosc/app/kernel/pool"
 )
 
 type testObject struct {

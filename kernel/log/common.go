@@ -1,4 +1,3 @@
-// app/kernel/log/common.go
 package log
 
 import (

@@ -2,12 +2,13 @@
 package test
 
 import (
-	"app/kernel/log"
 	"fmt"
 	"os"
 	"strings"
 	"testing"
 	"time"
+
+	"github.com/vmosc/app/kernel/log"
 )
 
 func TestMain(m *testing.M) {
@@ -50,4 +51,3 @@ func printTestReport() {
 	fmt.Println("  - Benchmark Tests: Performance metrics")
 	fmt.Println("\n" + strings.Repeat("=", 60))
 }
-

@@ -1,11 +1,12 @@
 package app
 
 import (
-	"app/kernel/log"
 	"encoding/binary"
 	"io"
 	"reflect"
 	"sync"
+
+	"github.com/vmosc/app/kernel/log"
 )
 
 // Message 消息结构体。

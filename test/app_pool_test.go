@@ -1,15 +1,15 @@
-// app/test/app_pool_test.go
 package test
 
 import (
-	"app"
-	"app/api"
-	"app/kernel/log"
-	"app/kernel/pool"
 	"context"
 	"sync"
 	"testing"
 	"time"
+
+	"github.com/vmosc/app"
+	"github.com/vmosc/app/api"
+	"github.com/vmosc/app/kernel/log"
+	"github.com/vmosc/app/kernel/pool"
 )
 
 func TestObjectPool(t *testing.T) {

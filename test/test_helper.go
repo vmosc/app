@@ -1,9 +1,6 @@
-// app/test/test_helper.go
 package test
 
 import (
-	"app/api"
-	"app/kernel/config"
 	"fmt"
 	"net"
 	"os"
@@ -13,6 +10,9 @@ import (
 	"sync/atomic"
 	"testing"
 	"time"
+
+	"github.com/vmosc/app/api"
+	"github.com/vmosc/app/kernel/config"
 )
 
 var shortTempSeq uint64

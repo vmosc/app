@@ -1,12 +1,12 @@
-// app/test/codec_test.go
 package test
 
 import (
-	"app/kernel/codec"
 	"bytes"
 	"encoding"
 	"errors"
 	"testing"
+
+	"github.com/vmosc/app/kernel/codec"
 )
 
 type testMessage struct {

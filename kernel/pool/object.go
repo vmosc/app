@@ -1,4 +1,3 @@
-// app/kernel/pool/object.go
 package pool
 
 import (

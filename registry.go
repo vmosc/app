@@ -1,8 +1,6 @@
 package app
 
 import (
-	"app/kernel/log"
-	"app/kernel/pool"
 	"context"
 	"encoding/json"
 	"errors"
@@ -11,6 +9,9 @@ import (
 	"sync"
 	"sync/atomic"
 	"time"
+
+	"github.com/vmosc/app/kernel/log"
+	"github.com/vmosc/app/kernel/pool"
 )
 
 const (

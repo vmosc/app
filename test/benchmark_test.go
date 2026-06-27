@@ -1,16 +1,16 @@
-// app/test/benchmark_test.go
 package test
 
 import (
-	"app"
-	"app/api"
-	"app/kernel/pool"
 	"context"
 	"fmt"
 	"os"
 	"sync/atomic"
 	"testing"
 	"time"
+
+	"github.com/vmosc/app"
+	"github.com/vmosc/app/api"
+	"github.com/vmosc/app/kernel/pool"
 )
 
 func BenchmarkMessageEncode(b *testing.B) {

@@ -1,9 +1,6 @@
 package app
 
 import (
-	"app/kernel/codec"
-	"app/kernel/log"
-	"app/kernel/pool"
 	"context"
 	"encoding"
 	"encoding/json"
@@ -15,6 +12,10 @@ import (
 	"sync"
 	"sync/atomic"
 	"time"
+
+	"github.com/vmosc/app/kernel/codec"
+	"github.com/vmosc/app/kernel/log"
+	"github.com/vmosc/app/kernel/pool"
 )
 
 // 全局客户端缓存 - key 使用 socketPath 而非 service，避免多实例覆盖

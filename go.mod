@@ -1,4 +1,4 @@
-module app
+module github.com/vmosc/app
 
 go 1.26.1
 

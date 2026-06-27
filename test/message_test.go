@@ -1,13 +1,14 @@
 package test
 
 import (
-	"app"
-	"app/kernel/log"
 	"fmt"
 	"reflect"
 	"strings"
 	"testing"
 	"time"
+
+	"github.com/vmosc/app"
+	"github.com/vmosc/app/kernel/log"
 )
 
 func TestMessage(t *testing.T) {

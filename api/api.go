@@ -3,7 +3,7 @@
 package api
 
 import (
-	"app"
+	"github.com/vmosc/app"
 )
 
 // ========== 类型转发 ==========

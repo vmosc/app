@@ -1,13 +1,14 @@
 package app
 
 import (
-	"app/kernel/log"
 	"context"
 	"fmt"
 	"reflect"
 	"runtime"
 	"strings"
 	"sync"
+
+	"github.com/vmosc/app/kernel/log"
 )
 
 // MethodInfo 方法信息。

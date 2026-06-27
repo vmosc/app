@@ -1,12 +1,12 @@
-// app/test/config_test.go
 package test
 
 import (
-	"app/kernel/config"
 	"os"
 	"path/filepath"
 	"strings"
 	"testing"
+
+	"github.com/vmosc/app/kernel/config"
 )
 
 type KernelTestConfig struct {

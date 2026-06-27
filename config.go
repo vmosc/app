@@ -1,10 +1,11 @@
 package app
 
 import (
-	"app/kernel/config"
-	"app/kernel/log"
 	"os"
 	"path/filepath"
+
+	"github.com/vmosc/app/kernel/config"
+	"github.com/vmosc/app/kernel/log"
 )
 
 // Config 框架私有配置（所有字段私有）。

@@ -1,10 +1,6 @@
-// app/test/client_test.go
 package test
 
 import (
-	"app"
-	"app/kernel/log"
-	"app/kernel/pool"
 	"context"
 	"fmt"
 	"net"
@@ -13,6 +9,10 @@ import (
 	"sync/atomic"
 	"testing"
 	"time"
+
+	"github.com/vmosc/app"
+	"github.com/vmosc/app/kernel/log"
+	"github.com/vmosc/app/kernel/pool"
 )
 
 func TestClient(t *testing.T) {

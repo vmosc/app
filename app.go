@@ -1,8 +1,6 @@
 package app
 
 import (
-	"app/kernel/log"
-	"app/kernel/pool"
 	"context"
 	"fmt"
 	"os"
@@ -12,6 +10,9 @@ import (
 	"sync"
 	"syscall"
 	"time"
+
+	"github.com/vmosc/app/kernel/log"
+	"github.com/vmosc/app/kernel/pool"
 )
 
 // App 应用主结构。

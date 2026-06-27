@@ -1,13 +1,13 @@
-// app/test/app_test.go
 package test
 
 import (
-	"app/api"
 	"context"
 	"fmt"
 	"sync"
 	"testing"
 	"time"
+
+	"github.com/vmosc/app/api"
 )
 
 // TestAppIntegration 整体集成测试。

@@ -1,10 +1,11 @@
 package app
 
 import (
-	"app/kernel/log"
-	"app/kernel/pool"
 	"sync"
 	"time"
+
+	"github.com/vmosc/app/kernel/log"
+	"github.com/vmosc/app/kernel/pool"
 )
 
 const defaultPoolBufferCap = 4096

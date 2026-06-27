@@ -1,14 +1,14 @@
-// app/test/server_rate_limit_test.go
 package test
 
 import (
-	"app/api"
 	"context"
 	"fmt"
 	"sync"
 	"sync/atomic"
 	"testing"
 	"time"
+
+	"github.com/vmosc/app/api"
 )
 
 // TestServerRateLimit 测试服务端限流逻辑（需要配置 enabled）。

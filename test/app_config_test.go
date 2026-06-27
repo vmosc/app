@@ -1,9 +1,9 @@
-// app/test/app_config_test.go
 package test
 
 import (
-	"app/api"
 	"testing"
+
+	"github.com/vmosc/app/api"
 )
 
 func TestConfig(t *testing.T) {

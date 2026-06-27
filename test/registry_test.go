@@ -1,10 +1,6 @@
-// app/test/registry_test.go
 package test
 
 import (
-	"app"
-	"app/kernel/log"
-	"app/kernel/pool"
 	"context"
 	"encoding/json"
 	"net"
@@ -12,6 +8,10 @@ import (
 	"path/filepath"
 	"testing"
 	"time"
+
+	"github.com/vmosc/app"
+	"github.com/vmosc/app/kernel/log"
+	"github.com/vmosc/app/kernel/pool"
 )
 
 func TestRegistry(t *testing.T) {

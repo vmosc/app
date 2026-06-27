@@ -1,8 +1,6 @@
-// app/test/unix_test.go
 package test
 
 import (
-	"app/kernel/unix"
 	"bytes"
 	"context"
 	"errors"
@@ -12,6 +10,8 @@ import (
 	"path/filepath"
 	"testing"
 	"time"
+
+	"github.com/vmosc/app/kernel/unix"
 )
 
 func TestUnixClientServer(t *testing.T) {
