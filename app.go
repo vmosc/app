@@ -27,6 +27,11 @@ type App struct {
 	businessConfig map[string]any
 	bizMu          sync.RWMutex
 	serviceType    string
+
+	// registryDisabled 禁用注册客户端标志。
+	// 在 Init 之前设置为 true，则不会创建 RegistryClient，也不会启动环境变量监听协程。
+	// 用于注册中心自身或其他不需要注册到注册中心的服务。
+	registryDisabled bool
 }
 
 var (
@@ -47,6 +52,13 @@ func getInstance() *App {
 // GetApp 获取全局单例（不设置 serviceType，由 Init 传入）。
 func GetApp() *App {
 	return getInstance()
+}
+
+// DisableRegistry 禁用注册客户端。
+// 必须在 Init() 之前调用，否则无效。
+// 用于注册中心自身或其他不需要注册到注册中心的服务。
+func (a *App) DisableRegistry() {
+	a.registryDisabled = true
 }
 
 // cleanServiceName 清理服务名：去除路径、扩展名和多余的后缀。
@@ -169,49 +181,54 @@ func (a *App) Init(serviceType string) error {
 	// 同步延迟注册的方法
 	syncDeferredHandlers(a.server)
 
-	// 同步创建注册中心客户端
-	if envSocket := os.Getenv("REGISTRY_SOCKET"); envSocket != "" {
-		rc, err := NewRegistryClient(envSocket, a.config.codecType, a.config.serviceName, a.config.serviceType)
-		if err != nil {
-			log.Error("app: create registry client failed", "err", err)
-		} else {
-			ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-			if err := rc.Register(ctx, nil); err != nil {
-				log.Error("app: register to registry failed", "err", err)
-			}
-			cancel()
-			rc.StartHeartbeat(time.Duration(a.config.heartbeatInterval))
-			a.mu.Lock()
-			a.registry = rc
-			a.config.registrySocket = envSocket
-			a.mu.Unlock()
-			log.Info("app: registry client initialized synchronously")
-		}
-	}
-
-	// 启动后台协程定期检查环境变量变化
-	if a.config.envCheckInterval > 0 {
-		go func() {
-			getConfig := func() (registrySocket, codecType, serviceName, serviceType string, heartbeatInterval int64) {
-				a.mu.RLock()
-				defer a.mu.RUnlock()
-				return a.config.registrySocket, a.config.codecType, a.config.serviceName, a.config.serviceType, a.config.heartbeatInterval
-			}
-			onUpdate := func(newClient *RegistryClient) {
-				a.mu.Lock()
-				defer a.mu.Unlock()
-				if a.registry != nil {
-					ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-					_ = a.registry.Deregister(ctx, "")
-					cancel()
-					a.registry.Stop()
+	// 注册客户端：仅在未禁用时创建
+	if !a.registryDisabled {
+		// 同步创建注册中心客户端
+		if envSocket := os.Getenv("REGISTRY_SOCKET"); envSocket != "" {
+			rc, err := NewRegistryClient(envSocket, a.config.codecType, a.config.serviceName, a.config.serviceType)
+			if err != nil {
+				log.Error("app: create registry client failed", "err", err)
+			} else {
+				ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+				if err := rc.Register(ctx, nil); err != nil {
+					log.Error("app: register to registry failed", "err", err)
 				}
-				a.registry = newClient
-				a.config.registrySocket = newClient.client.socketPath
+				cancel()
+				rc.StartHeartbeat(time.Duration(a.config.heartbeatInterval))
+				a.mu.Lock()
+				a.registry = rc
+				a.config.registrySocket = envSocket
+				a.mu.Unlock()
+				log.Info("app: registry client initialized synchronously")
 			}
-			WatchRegistrySocket(getConfig, onUpdate, a.stopChan, time.Duration(a.config.envCheckInterval))
-		}()
-		log.Info("app: registry env checker started")
+		}
+
+		// 启动后台协程定期检查环境变量变化
+		if a.config.envCheckInterval > 0 {
+			go func() {
+				getConfig := func() (registrySocket, codecType, serviceName, serviceType string, heartbeatInterval int64) {
+					a.mu.RLock()
+					defer a.mu.RUnlock()
+					return a.config.registrySocket, a.config.codecType, a.config.serviceName, a.config.serviceType, a.config.heartbeatInterval
+				}
+				onUpdate := func(newClient *RegistryClient) {
+					a.mu.Lock()
+					defer a.mu.Unlock()
+					if a.registry != nil {
+						ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+						_ = a.registry.Deregister(ctx, "")
+						cancel()
+						a.registry.Stop()
+					}
+					a.registry = newClient
+					a.config.registrySocket = newClient.client.socketPath
+				}
+				WatchRegistrySocket(getConfig, onUpdate, a.stopChan, time.Duration(a.config.envCheckInterval))
+			}()
+			log.Info("app: registry env checker started")
+		}
+	} else {
+		log.Info("app: registry client disabled")
 	}
 
 	log.Info("app: initialized successfully")

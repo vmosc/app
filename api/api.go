@@ -20,6 +20,11 @@ var (
 	// 使用方式：api.NewApp().Init("crawler")
 	NewApp = app.GetApp
 
+	// DisableRegistry 禁用注册客户端，必须在 Init 之前调用
+	// 用于注册中心自身或其他不需要注册到注册中心的服务
+	// 使用方式：api.NewApp().DisableRegistry()
+	DisableRegistry = app.GetApp().DisableRegistry
+
 	// 方法注册
 	RegisterStruct = app.RegisterStruct
 	RegisterFunc   = app.RegisterFunc
